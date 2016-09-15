@@ -1,0 +1,10 @@
+module.exports = {
+    address: 'the url',
+    port: '5672',
+    user: '',
+    password: '',
+    exchange:{
+      name:'',
+      type:''
+    }
+};

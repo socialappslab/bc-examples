@@ -26,32 +26,41 @@ import org.apache.http.client.fluent.Form;
  * - Write your recipients emails in the "to" parameter of the form data.
  * - Download HttpComponents Core and HttpComponents Core and
  * - HttpComponents Client libraries from http://hc.apache.org
- * - Compile: javac -cp ".:lib/*" HttpPostClientExample.java
- * - Run: java -cp ".:lib/*" HttpPostClientExample
+ * - Compile: javac -cp ".:lib/*" HttpPostClientExampleForm.java
+ * - Run: java -cp ".:lib/*" HttpPostClientExampleForm
  */
-public class HttpPostClientExample {
+public class HttpPostClientExampleForm {
 
     public static void main(String[] args) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
 
             //HttPost receives the http binding component endpoint
+            //ttp://localhost:3000/send is the BC url, so maybe replace it
             HttpPost httpPost = new HttpPost("http://localhost:3000/send");
 
             //set the form data
             List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-            nvps.add(new BasicNameValuePair("to", "write an email address here"));
-            nvps.add(new BasicNameValuePair("to", "maybe another one"));
-            nvps.add(new BasicNameValuePair("from", "from@example.org"));
+            //Get list of concerned users; for example, from the DB
+            nvps.add(new BasicNameValuePair("to", "one@email.com"));
+            nvps.add(new BasicNameValuePair("to", "two@email.fr"));
+            //from who? maybe you can put here the info of your system
+            nvps.add(new BasicNameValuePair("from", "AppCivist Bot <bot@appcivist.org>"));
+            //the title of your notification
             nvps.add(new BasicNameValuePair("subject", "This is just a test!"));
-            nvps.add(new BasicNameValuePair("text", "<html><p><strong>Example Email from AppCivist</strong></p>\
-            <img src=\"http://www.airport-orly.com/images/paris-tour-eiffel-at-night.jpg\"\
-             alt=\"Mountain View\" style=\"width:304px;height:228px;\"></html>"));
+            //you can create the email content elswehere, by querying info
+            //from the DB
+            String content = "<html><p><strong>Example Email from AppCivist</strong></p>";
+            content.concat("<img src=\"http://www.airport-orly.com/images/paris-tour-eiffel-at-night.jpg\"");
+            content.concat("alt=\"Mountain View\" style=\"width:304px;height:228px;\"></html>");
+
+            nvps.add(new BasicNameValuePair("text", content));
             httpPost.setEntity(new UrlEncodedFormEntity(nvps));
 
             //set the query string
+            //"email" is the name of the receiver in the platform
             URI uri = new URIBuilder(httpPost.getURI()).addParameter("destination",
-            "sp.appcivist.assembly.assemblytest.forum.post").build();
+            "email").build();
 
             ((HttpRequestBase) httpPost).setURI(uri);
 

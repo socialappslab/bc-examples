@@ -12,7 +12,7 @@
 
 var amqp = require('amqplib/callback_api');
 var conf = require('./conf/amqp-endpoint.conf');
-var bus = require('./amqp-sender');
+var sender = require('./amqp-sender');
 
 
 /**
@@ -40,7 +40,7 @@ exports.listen = function() {
 
                 ch.consume(q.queue, function(msg) {
                     console.log(" [x] %s", msg.content.toString());
-                    bus.post(msg.content.toString());
+                    sender.post(msg.content.toString());
                 });
 
             }, {

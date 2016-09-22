@@ -1,3 +1,5 @@
 *.conf.js
 .DS_Store
 node_modules
+*.jar
+*.class

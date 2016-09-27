@@ -14,9 +14,10 @@ var express = require('express');
 
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var routes = require('./routes/routes');
+var routes = require('./routes');
 var multer = require('multer');
 var upload = multer();
+var conf = require('./conf/http-endpoint.conf.js');
 
 /**
  * Receives a message from a Social Entity.
@@ -28,7 +29,7 @@ var upload = multer();
 exports.listen = function() {
 
     //var port = (process.env.PORT || 3000);
-    var port = (process.env.VCAP_APP_PORT || 3000);
+    var port = (process.env.VCAP_APP_PORT || conf.port);
 
     var app = express();
 

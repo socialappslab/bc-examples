@@ -10,6 +10,7 @@
 
 var amqp = require('amqplib/callback_api');
 var conf = require('./conf/amqp-sender.conf');
+var Message = require('./lib/message');
 
 /**
  * Sends a message to the Social Communication Platform Bus.
@@ -18,16 +19,30 @@ var conf = require('./conf/amqp-sender.conf');
  * @param {string} msg - The destination.
  */
 exports.post = function(msg, destination) {
-    //amqp server connection
     connection = 'amqp://' + conf.user + ':' + conf.password +
         '@' + conf.address + ':' + conf.port;
     amqp.connect(connection, function(err, conn) {
-        conn.createChannel(function(err, ch) {
-            ch.assertExchange(destination, conf.exchange.type, {
-                durable: true
-            });
-            ch.publish(destination, '', new Buffer(msg));
-            console.log(" [x] Sent %s", msg);
-        });
+        if (err) {
+            console.log(err.stack);
+        } else {
+
+            connect(err, conn, msg, destination);
+        }
     });
 };
+
+function connect(err, conn, msg, destination) {
+
+    conn.on('error', function(err) {
+        console.log('An error occurred: ' + err.stack);
+    });
+
+    conn.createChannel(function(err, ch) {
+        ch.assertExchange(destination, conf.exchange.type, {
+            durable: true
+        });
+        message = new Message('', destination, msg);
+        ch.publish(destination, '', new Buffer(JSON.stringify(message)));
+        console.log(" [x] Sent %s", JSON.stringify(message));
+    });
+}

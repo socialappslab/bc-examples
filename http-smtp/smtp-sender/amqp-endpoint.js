@@ -13,7 +13,7 @@
 var amqp = require('amqplib/callback_api');
 var conf = require('./conf/amqp-endpoint.conf');
 var out = require('./smtp-sender');
-
+var Message = require('./lib/message');
 
 /**
  * Receives a message from a Social Entity.
@@ -27,25 +27,50 @@ exports.listen = function() {
     connection = 'amqp://' + conf.user + ':' + conf.password +
         '@' + conf.address + ':' + conf.port;
     amqp.connect(connection, function(err, conn) {
-        conn.createChannel(function(err, ch) {
-            ex = conf.exchange.name;
-            ch.assertExchange(ex, conf.exchange.type, {
-                durable: true
+        if (err) {
+            console.log(err.stack);
+        } else {
+            //connection error handling
+            conn.on('error', function(err) {
+                console.log('An error occurred: ' + err);
             });
-            ch.assertQueue('', {
-                exclusive: true
-            }, function(err, q) {
-                console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
-                ch.bindQueue(q.queue, ex, '');
 
-                ch.consume(q.queue, function(msg) {
-                    console.log(" [x] %s", msg.content.toString());
-                    out.post(msg.content.toString());
-                });
-
-            }, {
-                noAck: true
+            conn.createChannel(function(err, ch) {
+                if (err) {
+                    console.log(err.stack);
+                } else {
+                    connect(ch);
+                }
             });
-        });
+        }
     });
 };
+
+
+function connect(ch) {
+
+    ex = 'email';
+    ch.assertExchange(ex, conf.exchange.type, {
+        durable: true
+    });
+    ch.assertQueue('email', {
+        exclusive: true
+    }, function(err, q) {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
+            ch.bindQueue(q.queue, ex, '');
+
+            ch.consume(q.queue, function(msg) {
+                var message = JSON.parse(msg.content.toString());
+                message.__proto__ = Message.prototype;
+                console.log(" [x] %s", message.getData());
+                out.post(message.getData());
+            });
+        }
+
+    }, {
+        noAck: true
+    });
+}

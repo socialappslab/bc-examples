@@ -6,6 +6,6 @@
  * the Social Communication Platform.
  */
 
-var bc = require('./amqp-endpoint.js');
+var bc = require('./amqp-endpoint');
 
 bc.listen();

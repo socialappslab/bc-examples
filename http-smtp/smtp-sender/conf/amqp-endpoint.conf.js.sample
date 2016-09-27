@@ -1,0 +1,10 @@
+module.exports = {
+    address: '',
+    port: '5672',
+    user: '',
+    password: '',
+    exchange:{
+      name:'',
+      type:'fanout'
+    }
+};

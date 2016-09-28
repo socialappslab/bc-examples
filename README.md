@@ -5,17 +5,34 @@ All examples use AMQP as the Social Communication Platform protocol and were gen
 
 ###### AMQP to SMTP
 
+- BCs:
+
+This example has two BCs:
+
+1) *amqp-subscriber BC*: it subscribes to an AMQP broker and sends events to the Social Communication Platform via AMQP. Note that there is no protocol mediation between the AMQP broker and the Social Communication Platform since they both talk AMQP; however, this BC is needed as a AMQP subscription endpoint.
+
+2) *smtp-sender BC*: it receives AMQP messages from the Social Communication Platform and sends them using the SMTP protocol.
+
 - Dummy Producer:
 
 There is a AMQP producer written for Node.js.
 
 ###### HTTP to SMTP
 
+This example has two BCs:
+
+1) *http-endpoint BC*: it is an HTTP server exposing a POST method. It sends received messages to the Social Communication Platform via AMQP.
+2) *smtp-sender BC*: it receives AMQP messages from the Social Communication Platform and sends them using the SMTP protocol.
+
 - Dummy Producer:
 
 There are two types of the HTTP producer: one sending **x-www-form-urlencoded** data; the other sending **json** data. Both types of producers are available in Java and un curl.
 
 ###### AMQP to HTTP
+
+This example includes only one BC:
+
+1) *http-sender BC*: it receives AMQP messages from the Social Communication Platform and sends them via HTTP to an HTTP server.
 
 - Dummy Producer:
 

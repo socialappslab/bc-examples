@@ -59,3 +59,7 @@ To run the examples in this repository you have to:
 - run a dummy producer;
 
 Then you can watch the console output of both BCs to see the sending and reception of messages.
+
+## More
+
+- [Production best practices if you are using Node.js BCs](https://expressjs.com/en/advanced/best-practice-performance.html).

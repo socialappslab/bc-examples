@@ -21,6 +21,7 @@ var Message = require('./lib/message');
 exports.post = function(msg, destination) {
     connection = 'amqp://' + conf.user + ':' + conf.password +
         '@' + conf.address + ':' + conf.port;
+    console.log(connection);
     amqp.connect(connection, function(err, conn) {
         if (err) {
             console.log(err.stack);

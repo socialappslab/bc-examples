@@ -41,6 +41,8 @@ public class HttpPostClientExampleForm {
 
             //set the form data
             List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+            //Set destination
+            nvps.add(new BasicNameValuePair("destination", "email"));
             //Get list of concerned users; for example, from the DB
             nvps.add(new BasicNameValuePair("to", "one@email.com"));
             nvps.add(new BasicNameValuePair("to", "two@email.fr"));
@@ -59,9 +61,9 @@ public class HttpPostClientExampleForm {
 
             //set the query string
             //"email" is the name of the receiver in the platform
-            URI uri = new URIBuilder(httpPost.getURI()).addParameter("destination",
-            "email").build();
-
+            //URI uri = new URIBuilder(httpPost.getURI()).addParameter("destination",
+            //"email").build();
+            URI uri = new URIBuilder(httpPost.getURI()).build();
             ((HttpRequestBase) httpPost).setURI(uri);
 
             //now, execute it!

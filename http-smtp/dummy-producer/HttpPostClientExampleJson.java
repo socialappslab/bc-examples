@@ -61,6 +61,7 @@ public class HttpPostClientExampleJson {
 
             JsonBuilderFactory factory = Json.createBuilderFactory(null);
             JsonObject value = factory.createObjectBuilder()
+             .add("destination",  "email")
              .add("to",  obj.toString())
              .add("from", "AppCivist Bot <bot@appcivist.org>")
              .add("subject", "This is just a test!")
@@ -78,8 +79,9 @@ public class HttpPostClientExampleJson {
             httpPost.setEntity(requestEntity);
             //set the query string
             //"email" is the name of the receiver in the platform
-            URI uri = new URIBuilder(httpPost.getURI()).addParameter("destination",
-            "email").build();
+            //URI uri = new URIBuilder(httpPost.getURI()).addParameter("destination",
+            //"email").build();
+            URI uri = new URIBuilder(httpPost.getURI()).build();
 
             ((HttpRequestBase) httpPost).setURI(uri);
 

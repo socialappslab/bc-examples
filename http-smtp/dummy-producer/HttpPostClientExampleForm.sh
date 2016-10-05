@@ -1,5 +1,6 @@
-    curl -X POST http://localhost:3000/send?destination=email\
+    curl -X POST http://localhost:3000/send\
         -F 'from'='AppCivist Bot <bot@appcivist.org>' \
+        -F destination=email \
         -F to=one@email.com \
         -F to=two@email.fr \
         -F subject='This is just a test' \

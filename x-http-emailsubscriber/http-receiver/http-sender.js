@@ -26,8 +26,8 @@ exports.post = function(msg) {
     request.post(
         'http://appcivist.littlemacondo.com/emailsubscriber/' + msg.getData(), {
             json: {
-                'eventTitle': eventTitle.getData().operation,
-                'instancedata': eventTitle.getData().instancedata
+                'eventTitle': msg.getData().operation,
+                'instancedata': msg.getData().instancedata
             }
         },
         function(error, response, body) {

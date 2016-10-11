@@ -62,4 +62,19 @@ Then you can watch the console output of both BCs to see the sending and recepti
 
 ## More
 
+BCs written for Node.js are deployed following some of the best production practices described in:
+
 - [Production best practices if you are using Node.js BCs](https://expressjs.com/en/advanced/best-practice-performance.html).
+
+In particular, BCs are deployed using the Strong Loop Process Manager (don't forget to install the process manager as a service with the init system in case the server restarts). This way, BCs restart automatically if they crash. You can use the command `slc ctl ls` to see which BCs are running in the process manager. The output will look like this when running two of the example BCs:
+
+```
+Id          Name         Scale
+ 1     http-endpoint       1
+ 2      smtp-sender        1
+ ```
+ 
+ You can also find some additional services you can play with:
+ 
+- [Slack](https://github.com/rafaelangarita/slack-sender).
+- [Email subscriber and notifier](https://github.com/rafaelangarita/email-notification-service).

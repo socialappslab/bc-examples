@@ -9,12 +9,8 @@
  * - Type: HTTP sender.
  */
 
-var WebHooks = require('request');
+var request = require('request');
 var Message = require('./lib/message');
-
-var webHooks = new WebHooks({
-    db: './conf/http-sender.conf.json', // json file that store webhook URLs
-});
 
 /**
  * Sends a HTTP message.

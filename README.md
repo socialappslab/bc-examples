@@ -74,7 +74,36 @@ Id          Name         Scale
  2      smtp-sender        1
  ```
  
- You can also find some additional services you can play with:
+ You can also find some additional services you can play with. They are already participating in the Social Communication Bus.
  
 - [Slack](https://github.com/rafaelangarita/slack-sender).
+
+Sending a message to Slack using the generic HTTP endpoint BC:
+
+```
+curl -X POST http://appcivist.littlemacondo.com/httpendpoint/send\
+              -H "Content-Type: application/json"\
+              -d '{"destination":"slack",
+              "data": {"channel": "test","message": "Im a BC"}
+            }'
+```
+
 - [Email subscriber and notifier](https://github.com/rafaelangarita/email-notification-service).
+
+This service manages email addresses subscriptions to events. Then, when an event ocurrs, it sends a message to the Social Communication Bus with the email component as destination. The email component then sends an email to the corresponding subscriptor.
+
+It is identified as `email-subscriber` in the Social Communication Bus, so you can send a message to it via the generic HTTP endpoint BC. The following is an example of sending a `signal` to `email-subscriber`:
+
+```
+curl -X POST http://appcivist.littlemacondo.com/httpendpoint/send\
+            -H "Content-Type: application/json"\
+            -d '{"destination":"email-subscriber",
+            "operation":"signals", "data": {"eventTitle": "News flash 6","instancedata": "This one weighed more than 16 megatons!!"}
+          }'
+```
+
+You can use all the other operations of this service in a similar way. You can also try its endpoint directly without using the bus:
+
+```
+http://appcivist.littlemacondo.com/emailsubscriber/
+```

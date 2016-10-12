@@ -1,0 +1,7 @@
+{
+  "name": "bc-smtp-sender",
+  "version": "O.1",
+  "description": "smtp-sender",
+  "main": "start-bc.js"
+}
+

@@ -44,7 +44,7 @@ Id            Name            Scale
   - *Node.js BC execution*: node start-bc.js or slc start using the Strong Loop Process Manager.
 
 
-###### The AppCivist Notifier to Email BC
+### The AppCivist Notifier to Email BC
 
 - Components:
 
@@ -64,14 +64,14 @@ curl -X POST http://localhost:3000/email\
     "text":"<html><p><strong>Example Email from AppCivist</strong></p> <img src=\"http://www.airport-orly.com/images/paris-tour-eiffel-at-night.jpg\" alt=\"Mountain View\" style=\"width:304px;height:228px;\"></html>"
     }'
 ```
-###### The Email BC
+### The Email BC
 
 - Components:
 
 1) *amqp-endpoint*: it subscribes to the AMQP broker and waits for new messages for Email.
 2) *smtp-sender*: it sends received messages via email.
 
-###### The HTTP Webhook BC
+### The HTTP Webhook BC
 
 - Components:
 
@@ -79,14 +79,14 @@ curl -X POST http://localhost:3000/email\
 2) *http-sender*: it sends received messages via HTTP using Webhooks.
 
 
-###### The Subscription Manager BC
+### The Subscription Manager BC
 
 - Components:
 
 1) *amqp-endpoint*: it subscribes to the AMQP broker and waits for new messages for Email.
 2) *http-sender*: it sends received messages to the [Subscription Manager service](https://github.com/rafaelangarita/email-notification-service)..
 
-###### The Slack Channel BC
+### The Slack Channel BC
 
 - Components:
 

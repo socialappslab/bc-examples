@@ -1,7 +1,0 @@
-{
-  "name": "bc-http-endpoint",
-  "version": "0.1",
-  "description": "ibc-http-endpoint",
-  "main": "start-bc.js"
-}
-

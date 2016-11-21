@@ -1,0 +1,9 @@
+{
+  "name": "bc-smtp-sender",
+  "version": "0.0.1",
+  "description": "smtp-sender",
+  "main": "start-bc.js",
+  "dependencies": {
+       "amqplib":"0.5.x"
+   }
+}

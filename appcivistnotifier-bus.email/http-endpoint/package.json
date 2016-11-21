@@ -1,0 +1,14 @@
+{
+  "name": "appcivistnotifier-bus.email",
+  "version": "0.0.1",
+  "description": "bc-http-endpoint-bus.email",
+  "main": "start-bc.js",
+  "dependencies": {
+       "amqplib":"0.5.x",
+       "underscore":"1.8.x",
+       "express": "4.14.x",
+       "morgan": "1.7.x",
+       "body-parser": "1.15.x",
+       "multer": "1.2.x"
+   }
+}

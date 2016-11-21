@@ -5,7 +5,7 @@ var Message = require('./lib/message');
 
 amqp.connect('amqp://admin:admin@104.131.157.72', function(err, conn) {
     conn.createChannel(function(err, ch) {
-        var destination = 'http-receiver';
+        var destination = 'http-service';
         ch.assertExchange(destination, 'fanout', {
             durable: true
         });

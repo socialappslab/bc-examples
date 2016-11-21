@@ -1,7 +1,7 @@
 {
-  "name": "http-sender",
+  "name": "bc-bus-httpsender",
   "version": "0.0.1",
-  "description": "http-sender",
+  "description": "bc-bus-httpsender",
   "main": "start-bc.js",
   "dependencies": {
        "amqplib":"0.5.x",

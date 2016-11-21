@@ -41,7 +41,7 @@ exports.listen = function() {
     app.use(bodyParser.json());
 
     console.log('registering event routes with express');
-    app.post('/email', upload.array(), routes.send);
+    app.post('/' + conf.requestpath, upload.array(), routes.send);
 
     console.log('About to start listening');
     app.listen(port);

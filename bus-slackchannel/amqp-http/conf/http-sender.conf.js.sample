@@ -1,0 +1,3 @@
+module.exports = {
+    address: 'http://appcivist.littlemacondo.com/slacksender/slack'
+};

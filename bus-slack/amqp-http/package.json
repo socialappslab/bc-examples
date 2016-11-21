@@ -1,7 +1,0 @@
-{
-  "name": "bc-amqp-http-slack",
-  "version": "O.1",
-  "description": "bc-amqp-http-slack",
-  "main": "start-bc.js"
-}
-

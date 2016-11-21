@@ -1,0 +1,9 @@
+{
+  "name": "dummy-amqp-producer",
+  "version": "0.0.1",
+  "description": "dummy-amqp-producer",
+  "main": "http-endpoint.js",
+  "dependencies": {
+       "amqplib":"0.5.x"
+   }
+ }

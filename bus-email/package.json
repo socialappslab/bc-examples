@@ -1,7 +1,7 @@
 {
-  "name": "bc-smtp-sender",
+  "name": "bc-bus-email",
   "version": "0.0.1",
-  "description": "smtp-sender",
+  "description": "bc-bus-email",
   "main": "start-bc.js",
   "dependencies": {
        "amqplib":"0.5.x"

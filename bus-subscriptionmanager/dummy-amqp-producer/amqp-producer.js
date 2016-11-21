@@ -10,7 +10,7 @@ amqp.connect('amqp://admin:admin@104.131.157.72', function(err, conn) {
             durable: true
         });
 
-        message = new Message('', destination, '{"operation":"signals","eventTitle": "News flash 6","instancedata": "This one weighed more than 16 megatons!!"}');
+        message = new Message('', '', '{"operation":"signals","eventTitle": "News flash 6","instancedata": "This one weighed more than 16 megatons!!"}');
         ch.publish(destination, '', new Buffer(JSON.stringify(message)));
         console.log(" [x] Sent %s", JSON.stringify(message));
     });

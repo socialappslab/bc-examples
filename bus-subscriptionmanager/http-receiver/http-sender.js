@@ -11,6 +11,7 @@
 
 var request = require('request');
 var Message = require('./lib/message');
+var conf = require('./conf/hhtp-sender.conf');
 
 /**
  * Sends a HTTP message.
@@ -21,12 +22,12 @@ exports.post = function(msg) {
     var data = JSON.parse(msg.getData());
     console.log('http-sender received: ' + data.operation);
     request.post(
-        'http://appcivist.littlemacondo.com/emailsubscriber/' + data.operation, {
+        conf.address + data.operation, {
             /*json: {
                 'eventTitle': data.eventTitle,
                 'instancedata': data.instancedata
             }*/
-	    json: data.data
+            json: data.data
         },
         function(error, response, body) {
             console.log(response);

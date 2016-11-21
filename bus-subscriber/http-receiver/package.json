@@ -1,7 +1,0 @@
-{
-  "name": "bc-http-emailsubscriber",
-  "version": "O.1",
-  "description": "http-emailsubscriber",
-  "main": "start-bc.js"
-}
-

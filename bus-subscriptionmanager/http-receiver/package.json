@@ -1,0 +1,6 @@
+{
+  "name": "bc-bus-subscriptionmanager",
+  "version": "O.1",
+  "description": "bc-bus-subscriptionmanager",
+  "main": "start-bc.js"
+}

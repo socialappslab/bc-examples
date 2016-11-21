@@ -49,11 +49,11 @@ exports.listen = function() {
 
 function connect(ch) {
 
-    ex = 'http-receiver';
+    ex = conf.exchange.name;
     ch.assertExchange(ex, conf.exchange.type, {
         durable: true
     });
-    ch.assertQueue('http-receiver', {
+    ch.assertQueue(conf.exchange.name, {
         exclusive: true
     }, function(err, q) {
         if (err) {

@@ -54,7 +54,7 @@ sudo /sbin/initctl start strong-pm
 ```bash
 # Build and run
 cd $BC_DIR
-slc build
+npm i
 slc start
 
 # See BCs running

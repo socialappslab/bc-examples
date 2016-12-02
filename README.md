@@ -29,9 +29,37 @@ There is no specific way of running BCs; however, we recommend to follow the bes
 
 - [Production best practices if you are using Node.js BCs](https://expressjs.com/en/advanced/best-practice-performance.html).
 
-In particular, BCs can be deployed using the Strong Loop Process Manager (don't forget to install the process manager as a service with the init system in case the server restarts). This way, BCs restart automatically if they crash. You can use the command `slc ctl ls` to see which BCs are running in the process manager. The output will look like this when running four BCs:
-
+1. Install the [Strong Loop Process Manager](http://strong-pm.io/prod/)
 ```
+npm install -g strong-pm
+```
+
+2. Install Process Manager as a service to ensure it starts when the system boots
+```bash
+# Ubuntu 12.04+:
+sudo sl-pm-install
+sudo /sbin/initctl start strong-pm 
+
+# Red Hat Enterprise Linux 7+:
+sudo sl-pm-install --systemd
+sudo /usr/bin/systemctl start strong-pm 
+
+# Red Hat Enterprise Linux 5 and 6:
+sudo sl-pm-install --upstart=0.6
+sudo /sbin/initctl start strong-pm
+```
+
+3. Use the slc to run the BC (this way, BCs restart automatically if they crash).
+
+```bash
+# Build and run
+cd $BC_DIR
+slc build
+slc start
+
+# See BCs running
+slc ctl ls
+
 Id            Name            Scale
  1   bc-appcivistnorifier-bus.email    1
  2       bc-bus-email                  1

@@ -15,11 +15,31 @@ All configuration files are located in the conf folder inside the BC's root fold
 Configuration parameters depend on the type of the BC; however, all BCs have either and AMQP endpoint (subscriber) or an AMQP sender (publisher).
 
 1) *AMQP* (for all BCs): you can find the AMQP configuration in the files `amqp-endpoint.conf.js.sample` or `amqp-sender.conf.js.sample`. It contains the information of the AMQP broker, including the name of the exchange to publish or subscribe to.
-
+```json
+module.exports = {
+    address: '127.0.0.1',
+    port: '5672',
+    user: 'username',
+    password: 'userpass',
+    exchange:{
+      name:'exchange-name',
+      type:'fanout'
+    }
+};
+```
 2) *HTTP Senders*: the files `http-sender.conf.json.sample` or `http-sender.conf.js.sample` contain the address of the HTTP endpoint to send the message to.
 
-2) *HTTP Endpoints*: the file `hhttp-endpoint.conf.js.sample` contains the port to listen to and the request path for the endpoint.
+3) *HTTP Endpoints*: the file `hhttp-endpoint.conf.js.sample` contains the port to listen to and the request path for the endpoint.
 
+4) Some BC (e.g., email) might require extra configuration for the components used in the lib folder. For example, the bus-email requires a valid SMTP account to be configured in `lib/mailer.conf.js`
+```
+module.exports = {
+    host: 'smtp.example.com',
+    port: 465,
+    email: 'user',
+    password: 'pass'
+};
+```
 
 Finally, you have to install the required modules of each BC using the command `npm install` in the BC's root folder.
 

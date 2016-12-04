@@ -4,6 +4,7 @@
   "description": "bc-bus-email",
   "main": "start-bc.js",
   "dependencies": {
-       "amqplib":"0.5.x"
+       "amqplib":"0.5.x",
+       "nodemailer":"2.6.x"
    }
 }

@@ -74,8 +74,14 @@ sudo /sbin/initctl start strong-pm
 ```bash
 # Build and run
 cd $BC_DIR
+//install node dependencies
 npm i
-slc start
+//build for a Git repository
+slc build
+//build for a non-Git repository or to deploy subdirectories of a Git repository
+slc build --pack
+//deploy
+slc deploy
 
 # See BCs running
 slc ctl ls
@@ -89,7 +95,7 @@ Id            Name            Scale
 
   The main file of BCs is called **start-bc** and it is located inside the BC's root folder. To execute a BC, you have to run this file. How to run it depends on the platform the BC was generated for.
 
-  - *Node.js BC execution*: node start-bc.js or slc start using the Strong Loop Process Manager.
+  - *Node.js BC execution*: node start-bc.js, slc start using the Strong Loop Process Manager locally, or deploy it using slc build and slc deploy.
 
 
 ### The AppCivist Notifier to Email BC

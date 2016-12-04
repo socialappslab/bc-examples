@@ -15,11 +15,31 @@ All configuration files are located in the conf folder inside the BC's root fold
 Configuration parameters depend on the type of the BC; however, all BCs have either and AMQP endpoint (subscriber) or an AMQP sender (publisher).
 
 1) *AMQP* (for all BCs): you can find the AMQP configuration in the files `amqp-endpoint.conf.js.sample` or `amqp-sender.conf.js.sample`. It contains the information of the AMQP broker, including the name of the exchange to publish or subscribe to.
-
+```json
+module.exports = {
+    address: '127.0.0.1',
+    port: '5672',
+    user: 'username',
+    password: 'userpass',
+    exchange:{
+      name:'exchange-name',
+      type:'fanout'
+    }
+};
+```
 2) *HTTP Senders*: the files `http-sender.conf.json.sample` or `http-sender.conf.js.sample` contain the address of the HTTP endpoint to send the message to.
 
-2) *HTTP Endpoints*: the file `hhttp-endpoint.conf.js.sample` contains the port to listen to and the request path for the endpoint.
+3) *HTTP Endpoints*: the file `hhttp-endpoint.conf.js.sample` contains the port to listen to and the request path for the endpoint.
 
+4) Some BC (e.g., email) might require extra configuration for the components used in the lib folder. For example, the bus-email requires a valid SMTP account to be configured in `lib/mailer.conf.js`
+```
+module.exports = {
+    host: 'smtp.example.com',
+    port: 465,
+    email: 'user',
+    password: 'pass'
+};
+```
 
 Finally, you have to install the required modules of each BC using the command `npm install` in the BC's root folder.
 
@@ -29,9 +49,37 @@ There is no specific way of running BCs; however, we recommend to follow the bes
 
 - [Production best practices if you are using Node.js BCs](https://expressjs.com/en/advanced/best-practice-performance.html).
 
-In particular, BCs can be deployed using the Strong Loop Process Manager (don't forget to install the process manager as a service with the init system in case the server restarts). This way, BCs restart automatically if they crash. You can use the command `slc ctl ls` to see which BCs are running in the process manager. The output will look like this when running four BCs:
-
+1. Install the [Strong Loop Process Manager](http://strong-pm.io/prod/)
 ```
+npm install -g strong-pm
+```
+
+2. Install Process Manager as a service to ensure it starts when the system boots
+```bash
+# Ubuntu 12.04+:
+sudo sl-pm-install
+sudo /sbin/initctl start strong-pm 
+
+# Red Hat Enterprise Linux 7+:
+sudo sl-pm-install --systemd
+sudo /usr/bin/systemctl start strong-pm 
+
+# Red Hat Enterprise Linux 5 and 6:
+sudo sl-pm-install --upstart=0.6
+sudo /sbin/initctl start strong-pm
+```
+
+3. Use the slc to run the BC (this way, BCs restart automatically if they crash).
+
+```bash
+# Build and run
+cd $BC_DIR
+npm i
+slc start
+
+# See BCs running
+slc ctl ls
+
 Id            Name            Scale
  1   bc-appcivistnorifier-bus.email    1
  2       bc-bus-email                  1
@@ -44,7 +92,7 @@ Id            Name            Scale
   - *Node.js BC execution*: node start-bc.js or slc start using the Strong Loop Process Manager.
 
 
-###### The AppCivist Notifier to Email BC
+### The AppCivist Notifier to Email BC
 
 - Components:
 
@@ -64,14 +112,14 @@ curl -X POST http://localhost:3000/email\
     "text":"<html><p><strong>Example Email from AppCivist</strong></p> <img src=\"http://www.airport-orly.com/images/paris-tour-eiffel-at-night.jpg\" alt=\"Mountain View\" style=\"width:304px;height:228px;\"></html>"
     }'
 ```
-###### The Email BC
+### The Email BC
 
 - Components:
 
 1) *amqp-endpoint*: it subscribes to the AMQP broker and waits for new messages for Email.
 2) *smtp-sender*: it sends received messages via email.
 
-###### The HTTP Webhook BC
+### The HTTP Webhook BC
 
 - Components:
 
@@ -79,14 +127,14 @@ curl -X POST http://localhost:3000/email\
 2) *http-sender*: it sends received messages via HTTP using Webhooks.
 
 
-###### The Subscription Manager BC
+### The Subscription Manager BC
 
 - Components:
 
 1) *amqp-endpoint*: it subscribes to the AMQP broker and waits for new messages for Email.
 2) *http-sender*: it sends received messages to the [Subscription Manager service](https://github.com/rafaelangarita/email-notification-service)..
 
-###### The Slack Channel BC
+### The Slack Channel BC
 
 - Components:
 

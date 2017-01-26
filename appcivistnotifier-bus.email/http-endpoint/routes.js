@@ -6,4 +6,5 @@ exports.send = function(req, res) {
     sender.post(body);
 
     res.send('OK');
+    console.log('message sent!');	
 }

@@ -19,6 +19,7 @@ var Message = require('./lib/message');
  * @param {string} msg - The destination.
  */
 exports.post = function(msg) {
+    console.log('sender posting a message to ' + conf.exchange.name);
     connection = 'amqp://' + conf.user + ':' + conf.password +
         '@' + conf.address + ':' + conf.port;
     console.log(connection);
